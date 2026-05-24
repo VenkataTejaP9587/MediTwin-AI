@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy-900: #0a0f1e;
+  --navy-800: #0d1526;
+  --navy-700: #111d33;
+  --cyan: #00d4ff;
+  --green: #00ff88;
+  --red: #ff3366;
+  --orange: #ff8c00;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-900);
+  color: #e2e8f0;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0d1526; }
+::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00d4ff44; }
+
+/* Glass card */
+.glass {
+  background: rgba(13, 21, 38, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 212, 255, 0.12);
+}
+
+.glass-light {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Neon glow utilities */
+.glow-cyan { box-shadow: 0 0 20px rgba(0,212,255,0.4); }
+.glow-green { box-shadow: 0 0 20px rgba(0,255,136,0.4); }
+.glow-red   { box-shadow: 0 0 20px rgba(255,51,102,0.5); }
+.text-glow-cyan { text-shadow: 0 0 12px rgba(0,212,255,0.8); }
+.text-glow-green { text-shadow: 0 0 12px rgba(0,255,136,0.8); }
+
+/* Status dot */
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+.status-dot.critical { background: #ff3366; box-shadow: 0 0 8px #ff3366; }
+.status-dot.stable   { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
+.status-dot.recovering { background: #ff8c00; box-shadow: 0 0 8px #ff8c00; }
+
+/* ECG line animation */
+@keyframes ecgScroll {
+  0%   { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Gradient backgrounds */
+.bg-gradient-medical {
+  background: linear-gradient(135deg, #0a0f1e 0%, #0d1a2e 50%, #0a1628 100%);
+}
+
+.bg-gradient-card {
+  background: linear-gradient(135deg, rgba(0,212,255,0.06) 0%, rgba(0,255,136,0.03) 100%);
+}
+
+/* Grid overlay */
+.bg-grid {
+  background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Animated border */
+.border-glow {
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0,212,255,0.15);
+  border-color: rgba(0,212,255,0.3);
+}
+
+/* Pulse ring animation */
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.ping-slow { animation: ping-slow 2s cubic-bezier(0,0,0.2,1) infinite; }
+
+/* Loading shimmer */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #0d1526 25%, #162040 50%, #0d1526 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Page transition */
+.page-enter { animation: fadeIn 0.35s ease-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Light mode overrides (Global Invert Strategy) */
+html.light {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #ffffff;
+}
+
+/* Reverse invert for images and charts so they retain correct colors */
+html.light img,
+html.light video,
+html.light canvas,
+html.light .recharts-wrapper,
+html.light svg {
+  filter: invert(1) hue-rotate(180deg);
+}
